@@ -18,8 +18,10 @@ Vagrant.configure(2) do |config|
 
   ANSIBLE_RAW_SSH_ARGS = []
   VAGRANT_VM_PROVIDER = "virtualbox"
-  machine_box = "trusty-server-cloudimg-amd64-vagrant-disk1"
-  machine_box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  # machine_box = "trusty-server-cloudimg-amd64-vagrant-disk1"
+  # change machine_box_url to local file
+  # machine_box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
+  machine_box = "trusty-server"
 
   zookeeper_node_count=3
   (1..zookeeper_node_count).each do |machine_id|
@@ -30,7 +32,7 @@ Vagrant.configure(2) do |config|
   (1..zookeeper_node_count).each do |machine_id|
     config.vm.define "zookeeper#{machine_id}" do |machine|
       machine.vm.box = machine_box
-      machine.vm.box_url = machine_box_url
+      #machine.vm.box_url = machine_box_url
       machine.vm.hostname = "zookeeper#{machine_id}"
       machine.vm.network "private_network", ip: "192.168.2.#{150+machine_id}"
       # machine.vm.synced_folder "provision/files/ssh/authorized_keys", "/home/spark/.ssh/authorized_keys", create:true
@@ -60,7 +62,7 @@ Vagrant.configure(2) do |config|
   (1..storm_node_count).each do |machine_id|
       config.vm.define "storm#{machine_id}" do |machine|
         machine.vm.box = machine_box
-        machine.vm.box_url = machine_box_url
+        #machine.vm.box_url = machine_box_url
         machine.vm.hostname = "storm#{machine_id}"
         machine.vm.network "private_network", ip: "192.168.2.#{160+machine_id}"
         machine.vm.provider "virtualbox" do |node|

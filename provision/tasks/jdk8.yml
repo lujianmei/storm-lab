@@ -1,11 +1,11 @@
 ---
 - name: copy jdk
-  copy: src="../files/jdk-8u66-linux-x64.tar.gz" dest="/tmp"
+  copy: src="../files/jdk-8u51-linux-x64.tar.gz" dest="/tmp"
 - name: mkdir for Java
   file: path="/usr/lib/jvm/" state=directory owner={{ user }} group={{ group }} mode="u=rwx,go=rx"
 - name: install JDK
-  unarchive: src="/tmp/jdk-8u66-linux-x64.tar.gz" dest="/usr/lib/jvm/" mode="go-w" copy=no
-- file: src="/usr/lib/jvm/jdk1.8.0_66" dest="/usr/lib/jvm/java" owner={{ user }} group={{ group }}  state=link
+  unarchive: src="/tmp/jdk-8u51-linux-x64.tar.gz" dest="/usr/lib/jvm/" mode="go-w" copy=no
+- file: src="/usr/lib/jvm/jdk1.8.0_51" dest="/usr/lib/jvm/java" owner={{ user }} group={{ group }}  state=link
 
 - name: set JAVA_HOME
   lineinfile: dest='/etc/profile' line='export JAVA_HOME=/usr/lib/jvm/java' state=present
